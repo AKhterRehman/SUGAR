@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar Balance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            width: 80%;
+            background-color: aquamarine;
+            padding: 0 20px;
+            margin: 20px auto;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .images {
+            display: flex;
+        }
+        .images img {
+            max-width: 100px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .navbar a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .slideshow-container {
+            width: 80%;
+            position: relative;
+            margin: 40px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .myslides {
+            display: none;
+        }
+        
+        .slideshow-container img {
+            width: 100%;
+            height: auto; /* Adjusts height dynamically based on width */
+            display: block; /* Ensures image takes full width */
+        }
+        
+        .back, .next {
+            position: absolute;
+            top: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 16px;
+            margin-top: -22px;
+            border-radius: 0 3px 3px 0;
+            color: #fff;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s;
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .back:hover, .next:hover {
+            background-color: orange;
+        }
+        
+        .caption {
+            text-align: center;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            color: orange;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 8px 22px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .dots {
+            width: 13px;
+            height: 13px;
+            background: gray;
+            display: inline-block;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        
+        @keyframes fade {
+            from {opacity: 0.4;}
+            to {opacity: 1;}
+        }
+        
+        .active, .dots:hover {
+            background-color: orange;
+        }
+        
+       
+        .timer {
+            text-align: center;
+            margin: 20px auto;
+            font-size: 24px;
+            color: orange;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .time-box {
+            display: inline-block;
+            padding: 10px;
+            margin: 0 10px;
+            text-align: center;
+            border: 2px solid orange;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .time-box span {
+            display: block;
+            font-size: 36px;
+        }
+        .time-box label {
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            .slideshow-container img {
+                height: 250px;
+            }
+            .container {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            .images {
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .navbar {
+                margin-top: 10px;
+            }
+            .timer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        .order {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        p {
+            color: black;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+       .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+       .button {
+            background-color: #ffa500;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+       .button:hover {
+            background-color: #ff9800;
+        }
+
+       .cart-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ffcc00;
+            margin-right: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+       .cart-icon i {
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+       .footer {
+            color: black;
+            font-size: 1rem;
+        }
+        
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 600px;
+            width: 100%;
+            justify-content: flex-end; /* Align images to the right */
+            margin: 0 auto; /* Center the grid container */
+        }
+        
+        .image-item {
+            flex: 1 1 auto; /* Allow items to grow and shrink */
+            max-width: 100px; /* Set a maximum width for each item */
+            box-sizing: border-box;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .image-item {
+                flex: 1 1 calc(50% - 10px); /* Adjust items for smaller screens */
+                max-width: calc(50% - 10px); /* Adjust maximum width for smaller screens */
+            }
+        }
+        .main {
+            background-color: #009999;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin: 0 auto;
+          }
+          .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 10px;
+            margin: 0 auto;
+          }
+          
+          .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+          }
+          
+          .circle img {
+            width: 100px;
+            height: auto;
+          }
+          
+
+          .header {
+            background-color: #f1f1f1;
+            padding: 10px; /* Reduced padding */
+            text-align: center;
+          }
+          
+          .content {
+            padding: 10px; /* Reduced padding */
+          }
+          
+          .footer {
+            background-color: #f1f1f1;
+            padding: 5px; /* Reduced padding */
+            text-align: center;
+          }
+          
+          /* Style for making "Sugar Balance" text orange */
+          h1, h2 {
+            text-align: left;
+          }
+          
+          h1 span, h2 span {
+            color: orange;
+          }
+          
+          /* Font size adjustments */
+          .content p, .content ul {
+            font-size: 14px; /* Reduced font size */
+          }
+          
+          /* Responsive design */
+          @media (max-width: 768px) {
+            .header, .content, .footer {
+              padding: 5px; /* Further reduced padding */
+            }
+          
+            h1 {
+              font-size: 24px;
+            }
+          
+            h2 {
+              font-size: 20px;
+            }
+          
+            .content p, .content ul {
+              font-size: 12px; /* Further reduced font size */
+            }
+          }
+          
+          @media (max-width: 480px) {
+            h1 {
+              font-size: 20px;
+              text-align: center;
+            }
+          
+            h2 {
+              font-size: 18px;
+            }
+          
+            .content p, .content ul {
+              font-size: 10px; /* Further reduced font size */
+            }
+          }
+          .main-div {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto; /* Center horizontally and provide margin */
+        }
+        
+        .child-div {
+            width: 100%;
+            max-width: 1200px; /* Limit maximum width for larger screens */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add margin between sections */
+        }
+        
+        .child-div h1 {
+            color: orange;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px; /* Adjust font size */
+        }
+        
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: calc(30% - 20px); /* Adjust width for smaller screens */
+            margin: 10px; /* Add margin around each card */
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+        .card h3 {
+            color: #333;
+            margin: 10px 0;
+            font-size: 18px; /* Adjust font size */
+        }
+        
+        .card p {
+            font-size: 14px; /* Adjust font size */
+        }
+        
+        .card button {
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px; /* Add spacing between button and content */
+        }
+        
+        .card button:hover {
+            background-color: darkorange;
+        }
+        
+        /* Responsive design adjustments */
+        @media (max-width: 1200px) {
+            .card {
+                width: calc(50% - 20px); /* Two cards per row on medium screens */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                width: calc(100% - 20px); /* One card per row on small screens */
+            }
+        }
+        
+        footer {
+            background-color:  #009999;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links li {
+            margin-right: 20px;
+        }
+
+        .links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+          
+          
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Sugar Balance</p>
+        <div class="images">
+            <img src="Images/download.jfif" alt="Image 1">
+            <img src="Images/3968608.jpg" alt="Image 2">
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+        <a href="#review">Review</a>
+    </div>
+
+    <div class="slideshow-container">
+        <div class="myslides fade">
+            <div><img src="Images/main.png" alt="Image 1"></div>
+            <div class="caption">Sugar Balance tablets have completely transformed my health regimen. With consistent use, I've noticed a significant improvement in my blood sugar levels, and I feel more energetic throughout the day.</div>
+        </div>
+
+        <div class="myslides fade">
+            <div><img src="Images/main2.jpg" alt="Image 2"></div>
+            <div class="caption">Sugar Balance tablets have completely transformed my health regimen. With consistent use, I've noticed a significant improvement in my blood sugar levels, and I feel more energetic throughout the day. </div>
+        </div>
+
+        <div class="myslides fade">
+            <div><img src="Images/main1.jpeg" alt="Image 3"></div>
+            <div class="caption">Sugar Balance tablets have completely transformed my health regimen. With consistent use, I've noticed a significant improvement in my blood sugar levels, and I feel more energetic throughout the day.</div>
+        </div>
+
+        <div class="myslides fade">
+            <div><img src="Images/main5.webp" alt="Image 4"></div>
+            <div class="caption">Sugar Balance tablets have completely transformed my health regimen. With consistent use, I've noticed a significant improvement in my blood sugar levels, and I feel more energetic throughout the day.</div>
+        </div>
+
+        <a class="back" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <br>
+
+    <div style="text-align:center">
+        <span class="dots" onclick="currentSlide(1)"></span>
+        <span class="dots" onclick="currentSlide(2)"></span>
+        <span class="dots" onclick="currentSlide(3)"></span>
+        <span class="dots" onclick="currentSlide(4)"></span>
+    </div>
+<div class="bg" style="background-color: #009999;">
+    <div class="timer">
+        <div class="time-box">
+            <span id="days">00</span>
+            <label>Days</label>
+        </div>
+        <div class="time-box">
+            <span id="hours">00</span>
+            <label>Hours</label>
+        </div>
+        <div class="time-box">
+            <span id="minutes">00</span>
+            <label>Minutes</label>
+        </div>
+        <div class="time-box">
+            <span id="seconds">00</span>
+            <label>Seconds</label>
+        </div>
+    </div>
+    <div class="order">
+        <p>Save Up To $695 and Create Quick Sugar Balance Order Today</p>
+        <div class="button-container">
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <button class="button">ORDER NOW</button>
+        </div>
+        <div class="footer">
+            Sugar Balance Official Site - 100% Original
+        </div>
+        
+
+        <div class="main">
+            <div class="item">
+              <div class="circle">
+                <img src="images/root.jpg" alt="Logo 1">
+              </div>
+              <h3>The Hidden Root Cause</h3>
+              <p>Of Type II Diabetes That<br>Your Doctor Will Never<br>Tell You About</p>
+            </div>
+        
+            <div class="item">
+              <div class="circle">
+                <img src="images/side.webp" alt="Logo 2">
+              </div>
+              <h3>The Dangerous Side Effects</h3>
+              <p>Of Prescription Drugs<br>That Are Putting Your Life<br>At Risk</p>
+            </div>
+        
+            <div class="item">
+              <div class="circle">
+                <img src="images/images.jpeg" alt="Logo 3">
+              </div>
+              <h3>The Breakthrough Natural</h3>
+              <p>Treatment That Reverses<br>High Blood Sugar Quickly<br>And Safely</p>
+            </div>
+          </div>
+
+    </div>
+</div>
+
+    
+<div class="header">
+    <h1><span>Sugar Balance</span> How It Works?</h1>
+  </div>
+  
+  <div class="content">
+    <p><span>Sugar Balance</span> works naturally. Will you believe someone tells you that it helps to remove excess fat around the liver? This is great for fatty liver patients. It detoxifies your body and burns all the extra fat.</p>
+    <p><span>Sugar Balance</span> reduces your high cholesterol level and removes toxins from your blood, arteries, and veins, which helps to improve the natural circulation of the body. It targets the root cause of diabetes, which is excess liver fat.</p>
+    <p>This supplement works on improving the function of the pancreas. Once you start taking this supplement, all the undesired fat around your body starts to melt, and you healthily lose weight.</p>
+    <p>Moreover, it burns extra blood sugar, so you are always full of energy. Also, your mental and physical health is not compromised.</p>
+    <p>Another benefit you would notice with these pills is increased energy and metabolism levels. As you would be losing and eating like a normal person, but you will not feel sluggish at all. But to get maximum benefits, it is better to follow a controlled diet and exercise routine.</p>
+  
+    <h2>Why <span>Sugar Balance</span>?</h2>
+    <p><span>Sugar Balance</span> is an excellent herbal supplement that supports you to stay healthy by controlling your blood sugar level with the aid of scientifically proven herbal ingredients to stay healthy and fit forever. With the help of this supplement in your routine, you can control your sugar cravings and maintain balance in your glucose level.</p>
+    <ul>
+      <li>It also supports the functions of your pancreas,</li>
+      <li>It detoxifies the liver function.</li>
+      <li>It cures diabetes without any side effects,</li>
+      <li>It balances blood glucose levels and lowers your sugar cravings,</li>
+      <li>You can improve your health that you never experienced before</li>
+      <li>It helps to restore normal blood glucose levels.</li>
+    </ul>
+  
+    <h2>How Do I Take <span>Sugar Balance</span>?</h2>
+    <p>As a dietary supplement, adults should take one (1) vegetarian capsule 3 times daily with meals, or as directed by a healthcare professional. It's always a good idea to drink lots of water throughout the day when using <span>Sugar Balance</span>.</p>
+  </div>
+  <div class="main-div">
+    <div class="child-div"  style="background-color: #ffcc00;">
+      <h1 style="color: black;">Sugar Balance Products</h1>
+      <div class="cards">
+        <div class="card">
+            <img src="images/order1.jpeg" alt="Product Image 1">
+            <h3>Product Name 1</h3>
+            <p>Details about Product 1</p>
+            <button class="order-btn" data-name="Product Name 1" data-price="XX.XX">Order Now</button>
+        </div>
+        
+         
+        <div class="card">
+          <img src="images/order2.jpeg" alt="Product Image 2">
+          <h3>Product Name 2</h3>
+          <p>Details about Product 2</p>
+          <button>Order Now</button>
+        </div>
+        <div class="card">
+          <img src="images/order3.jpeg" alt="Product Image 3">
+          <h3>Product Name 3</h3>
+          <p>Details about Product 3</p>
+          <button>Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-div">
+    <div class="child-div">
+      <h1 style="color: black;">Other Important Link</h1>
+      <div class="cards">
+        <div class="card">
+          <img src="images/order1.jpeg" alt="Product Image 1">
+          <h3>Privacy</h3>
+          <button>Read More</button>
+        </div>
+        <div class="card">
+          <img src="images/order2.jpeg" alt="Product Image 2">
+          <h3>Privacy</h3>
+          <button>Read More</button>
+        </div>
+        <div class="card">
+          <img src="images/order3.jpeg" alt="Product Image 3">
+          <h3>Privacy</h3>
+          <button>Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-container">
+        <div class="links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">REVIEW</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">GUARANTEE</a></li>
+            <li><a href="#">DISCLAIMER</a></li>
+            <li><a href="#">CONTACT</a></li>
+        </div>
+        <div>
+            <p>Copyright 2024 © Sugar Balance Discounts Site | All Rights Reserved</p>
+        </div>
+    </div>
+</footer>
+  
+ 
+  <script type="text/javascript">
+       
+var slide_Index = 1;
+showSlide(slide_Index);
+
+function plusSlides(n) {
+    showSlide(slide_Index += n);
+}
+
+function currentSlide(n) {
+    showSlide(slide_Index = n);
+}
+
+function showSlide(n) {
+    var i;
+    var slides = document.getElementsByClassName("myslides");
+    var dots = document.getElementsByClassName("dots");
+    if (n > slides.length) { slide_Index = 1 }
+    if (n < 1) { slide_Index = slides.length }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slide_Index - 1].style.display = "block";
+    dots[slide_Index - 1].className += " active";
+}
+
+function startTimer(duration, display) {
+    var timer = duration, days, hours, minutes, seconds;
+    setInterval(function () {
+        days = parseInt(timer / (60 * 60 * 24), 10);
+        hours = parseInt((timer % (60 * 60 * 24)) / (60 * 60), 10);
+        minutes = parseInt((timer % (60 * 60)) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        days = days < 10 ? "0" + days : days;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display[0].textContent = days;
+        display[1].textContent = hours;
+        display[2].textContent = minutes;
+        display[3].textContent = seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var timerDuration = 60 * 60 * 24 * 3; // 3 days for example
+    var display = [document.getElementById('days'), document.getElementById('hours'), document.getElementById('minutes'), document.getElementById('seconds')];
+    startTimer(timerDuration, display);
+};
+  </script>
+</body>
+</html>
